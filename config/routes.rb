@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
+  authenticated :user do
+    root to: "static_pages#home", as: :authenticated_root
+  end
+
+  root to: redirect('/users/sign_in')
+
 end
