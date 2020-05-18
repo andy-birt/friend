@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   root to: redirect('/users/sign_in')
 
+  resources :users 
+  resources :friend_requests, only: [:create] do
+    delete :destroy, on: :collection
+  end
+
 end

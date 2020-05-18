@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: jim
+  receiver: frank
+
+two:
+  user: alice
+  receiver: jim
+  accepted: <%= true %>
+
+three:
+  user: jim
+  receiver: alice
+  accepted: <%= true %>

@@ -16,7 +16,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:jim)
     get "/"
     assert_response :success
-    assert_select "h1", "Home page"
+    assert_select "h1", "Welcome jim@pew.com"
     # Sign out user then follow root path get log in page
     sign_out users(:jim)
     get "/"

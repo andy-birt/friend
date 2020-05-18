@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should be a valid user" do
-    assert @user.valid?
+    assert @user.valid?, @user.errors.full_messages
   end
 
   test "email should not be empty" do
