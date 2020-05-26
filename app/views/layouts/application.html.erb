@@ -58,7 +58,13 @@
     </nav>
     <div class="container">
       <% flash.each do |type, msg| %>
-        <%= content_tag :div, msg, class: type %>
+        <% if type == "notice" %>
+          <%= content_tag :div, msg, class: "alert alert-success" %>
+        <% elsif type == "error" %>
+          <%= content_tag :div, msg, class: "alert alert-danger" %>
+        <% else %>
+          <%= content_tag :div, msg, class: "alert alert-#{type}" %>
+        <% end %>
       <% end %>
       <%= yield %>
     </div>
