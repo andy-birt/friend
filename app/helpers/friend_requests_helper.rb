@@ -17,8 +17,9 @@ module FriendRequestsHelper
   end
 
   def create_request
-    current_user.friend_requests.create(receiver_id: params[:user_id])
+    @friend_request = current_user.friend_requests.create(receiver_id: params[:user_id])
     flash[:info] = "Friend request has been sent"
+    Notification.create(receiver: @friend_request.receiver, actor: current_user, action: "sent", notifiable: @friend_request)
     redirect_to root_url
   end
 

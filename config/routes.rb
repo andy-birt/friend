@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   
   resources :users 
 
+  resources :notifications
+
   resources :friend_requests, only: [:create] do
     delete :destroy, on: :collection
   end
