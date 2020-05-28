@@ -26,7 +26,7 @@
   }
 }
 
-[class^=notification] {
+#notifications > [class^=notification] {
   background-color: #e8e9ea;
   padding: 10px;
   border-radius: 10px;
