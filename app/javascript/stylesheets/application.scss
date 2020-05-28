@@ -26,6 +26,16 @@
   }
 }
 
+[class^=notification] {
+  background-color: #e8e9ea;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: .5rem;
+  [class$=message] {
+    padding-bottom: 5px;
+  }
+}
+
 @media screen and (min-width: 361px) {
   .notification-count {
     right: 0;
