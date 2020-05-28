@@ -22,9 +22,7 @@ $(document).ready(() => {
       url: '/notifications/mark_as_read',
       method: 'POST'
     })
-    .done((res) => {
-      console.log(res)
-    })
+    .done((res) => res)
   });
 });
 
