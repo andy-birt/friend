@@ -9,6 +9,7 @@ module FriendRequestsHelper
     if @fr.save
       flash[:success] = "You are now friends with #{@fr.user.email}"
       current_user.friend_requests.create(receiver_id: params[:user_id], accepted: true)
+      Notification.find_by(notifiable: @fr).destroy
       redirect_to notifications_url
     else
       flash[:danger] = "Someting went wrong"
@@ -40,13 +41,15 @@ module FriendRequestsHelper
 
   def cancel_request
     if cancelled = current_user.friend_requests.find_by(receiver_id: params[:receiver_id])
+      Notification.find_by(notifiable: cancelled).destroy
       cancelled.destroy
       flash[:success] = "Cancelled friend request"
       redirect_to root_url
     elsif declined = FriendRequest.find_by(user_id: params[:user_id])
+      Notification.find_by(notifiable: declined).destroy
       declined.destroy
       flash[:success] = "Declined friend request"
-      redirect_to root_url
+      redirect_to notifications_url
     else
       flash[:error] = "Something went wrong"
       redirect_to root_url

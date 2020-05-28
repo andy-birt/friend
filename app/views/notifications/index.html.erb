@@ -1,22 +1,28 @@
 <h1>Notifications</h1>
 
 <div id="notifications">
-  <% @notifications.each do |notification| %>
-    <div class="notification-<%= notification.id %>">
-      <% case notification.notifiable_type %>
-      <% when "FriendRequest" %>
-        <% unless notification.notifiable.accepted %>
-          <div class="notification-message">
-            <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
-          </div>
-          <div class="actions">
-            <%= link_to 'Accept', friend_requests_path(user_id: notification.actor), method: :create, class: "btn btn-success" %>
-            <%= link_to 'Decline', friend_requests_path(user_id: notification.actor), method: :delete, class: "btn btn-secondary" %>
-          </div>
-        <% else %>
-          <div class="notification-message">You are now friends with <%= notification.actor.email %>.</div>
+  <% if @notifications.any? %>
+    <% @notifications.each do |notification| %>
+      <div class="notification-<%= notification.id %>">
+        <% case notification.notifiable_type %>
+        <% when "FriendRequest" %>
+          <% unless notification.notifiable.accepted %>
+            <div class="notification-message">
+              <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+            </div>
+            <div class="actions">
+              <%= link_to 'Accept', friend_requests_path(user_id: notification.actor), method: :create, class: "btn btn-success" %>
+              <%= link_to 'Decline', friend_requests_path(user_id: notification.actor), method: :delete, class: "btn btn-secondary" %>
+            </div>
+          <% else %>
+            <div class="notification-message">You are now friends with <%= notification.actor.email %>.</div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="notification">
+      <div class="notification-message">You have no notifications</div>
     </div>
   <% end %>
 </div>
