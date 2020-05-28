@@ -65,7 +65,7 @@
       <% flash.each do |type, msg| %>
         <% if type == "notice" %>
           <%= content_tag :div, msg, class: "alert alert-success" %>
-        <% elsif type == "error" %>
+        <% elsif type == "error" || type == "alert" %>
           <%= content_tag :div, msg, class: "alert alert-danger" %>
         <% else %>
           <%= content_tag :div, msg, class: "alert alert-#{type}" %>
