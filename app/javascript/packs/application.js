@@ -16,6 +16,17 @@ document.addEventListener("turbolinks:load", () => {
   $('[data-toggle="popover"]').popover()
 })
 
+$(document).ready(() => {
+  $("a[href='/notifications']").click((e) => {
+    $.ajax({
+      url: '/notifications/mark_as_read',
+      method: 'POST'
+    })
+    .done((res) => {
+      console.log(res)
+    })
+  });
+});
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
