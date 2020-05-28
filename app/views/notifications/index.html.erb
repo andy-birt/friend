@@ -1,0 +1,18 @@
+<h1>Notifications</h1>
+
+<div id="notifications">
+  <% @notifications.each do |notification| %>
+    <div class="notification-<%= notification.id %>">
+      <% case notification.notifiable_type %>
+      <% when "FriendRequest" %>
+        <div class="notification-message">
+          <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>
+        </div>
+        <div class="actions">
+          <%= link_to 'Accept', friend_requests_path(user_id: notification.actor), method: :create, class: "btn btn-success" %>
+          <%= link_to 'Decline', friend_requests_path(user_id: notification.actor), method: :delete, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

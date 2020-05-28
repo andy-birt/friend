@@ -9,3 +9,31 @@
   scale: .75;
   padding: 0;
 }
+
+[href$=notifications] {
+
+  position: relative;
+
+  .notification-count {
+    position: absolute;
+    top: 0;
+    background-color: #dc3545;
+    color: #FFF;
+    width: 25px;
+    border-radius: 50%;
+    text-align: center;
+    scale: .75;
+  }
+}
+
+@media screen and (min-width: 361px) {
+  .notification-count {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .notification-count {
+    right: -6px;
+  }
+}

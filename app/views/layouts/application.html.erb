@@ -15,11 +15,11 @@
       <div class="container">
         <a class="navbar-brand" href=<%= root_url %>>friend</a>
         
-        <% if current_user %>
+        <% if user_signed_in? %>
           
           <ul class="navbar-nav flex-row">
             <li class="nav-item p-2 active">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="<%= authenticated_root_url %>">
                 <svg class="bi bi-house-door" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 01.708 0l6 6a.5.5 0 01.146.354v7a.5.5 0 01-.5.5H9.5a.5.5 0 01-.5-.5v-4H7v4a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-7a.5.5 0 01.146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 01.5-.5h3a.5.5 0 01.5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" clip-rule="evenodd"/>
                   <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z" clip-rule="evenodd"/>
@@ -28,15 +28,15 @@
               </a>
             </li>
             <li class="nav-item p-2 btn-group">
-              <a class="nav-link" href="#" role="button" id="notificationMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="50, 20">
+              <a class="nav-link" href="<%= notifications_path %>">
                 <svg class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
                   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
                 </svg>
+                <% if current_user.notifications.count > 0 %>
+                  <span class="notification-count"><%= current_user.notifications.count %></span>
+                <% end %>
               </a>
-              <div class="dropdown-menu" id="notifications" aria-labelledby="notificationMenuLink">
-                
-              </div>
             </li>
             <li class="nav-item p-2">
               <a class="nav-link" href="#">
