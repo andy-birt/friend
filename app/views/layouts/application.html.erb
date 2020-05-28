@@ -35,6 +35,8 @@
                 </svg>
                 <% if current_user.notifications.unread.count > 0 %>
                   <span class="notification-count"><%= current_user.notifications.unread.count %></span>
+                <% elsif current_user.notifications.unread.count > 99 %>
+                  <span class="notification-count">99+</span>
                 <% end %>
               </a>
             </li>

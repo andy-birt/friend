@@ -9,7 +9,7 @@ module FriendRequestsHelper
     if @fr.save
       flash[:success] = "You are now friends with #{@fr.user.email}"
       current_user.friend_requests.create(receiver_id: params[:user_id], accepted: true)
-      redirect_to root_url
+      redirect_to notifications_url
     else
       flash[:danger] = "Someting went wrong"
       redirect_to root_url
