@@ -12,11 +12,23 @@ import "bootstrap"
 import "../stylesheets/application"
 
 document.addEventListener("turbolinks:load", () => {
+  
   $('[data-toggle="tooltip"]').tooltip()
   $('[data-toggle="popover"]').popover()
+
+  switch(window.location.pathname) {
+
+    case "/":
+      $(".home").addClass("active");
+      break;
+    case "/notifications":
+      $(".notifications").addClass("active");
+      break;
+  }
+
 })
 
-$(document).ready(() => {
+$(() => {
   $("a[href='/notifications']").click((e) => {
     $.ajax({
       url: '/notifications/mark_as_read',
