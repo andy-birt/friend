@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     root to: "users/registrations#new"
   end
   
-  resources :users 
+  resources :users do
+    resources :posts
+  end
 
   resources :notifications do
     collection do
