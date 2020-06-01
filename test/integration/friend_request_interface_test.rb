@@ -8,7 +8,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
     @jim = users(:jim)
     @frank = users(:frank)
     @alice = users(:alice)
-    @fr = friend_requests(:one)
+    @fr = friend_requests(:jim_frank)
     @friends = friend_requests(:two)
   end
 
@@ -48,7 +48,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
       assert_equal "Declined friend request", flash[:success]
       assert_response :redirect
       follow_redirect!
-      assert_equal "/", path
+      assert_equal "/notifications", path
     end
 
   end
@@ -82,7 +82,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
       assert_equal "You are now friends with #{@jim.email}", flash[:success]
       assert_response :redirect
       follow_redirect!
-      assert_equal "/", path
+      assert_equal "/notifications", path
     end
 
   end

@@ -1,17 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  receiver_id: 1
-  actor_id: 1
-  read_at: 2020-05-26 09:05:45
-  action: MyString
-  notifiable_id: 1
-  notifiable_type: MyString
+notification_one:
+  receiver: frank
+  actor: jim
+  notifiable: jim_frank (FriendRequest)
 
-two:
-  receiver_id: 1
-  actor_id: 1
-  read_at: 2020-05-26 09:05:45
-  action: MyString
-  notifiable_id: 1
-  notifiable_type: MyString
+# two:
+#   receiver_id: 1
+#   actor_id: 1
+#   read_at: 2020-05-26 09:05:45
+#   action: MyString
+#   notifiable_id: 1
+#   notifiable_type: MyString
