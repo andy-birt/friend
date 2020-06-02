@@ -1,0 +1,24 @@
+<h1>Welcome <%= current_user.email %> </h1>
+
+<%= render "new" %>
+
+<% @posts.each do |post| %>
+  <div class="post-<%= post.id %>">
+    <span class="author">
+      <%# place user profile image  %>
+      <%= post.user.email %>
+      <%# place when posted ... maybe post options such as public, friends, etc... %>
+    </span>
+    <p class="body">
+      <%= post.body %>
+      <%# turncate the post if too long %>
+    </p>
+    <span class="stats">
+      <%# Likes, how many of them %>
+      <%# Comments, how many comments %>
+    </span>
+    <div class="actions">
+      <%# Section where user can like, comment, maybe share %>
+    </div>
+  </div>
+<% end %>
