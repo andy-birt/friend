@@ -3,20 +3,26 @@
 <%= render "new" %>
 
 <% @posts.each do |post| %>
-  <div class="post-<%= post.id %>">
+  <div class="post-<%= post.id %> mb-2">
     <span class="author">
       <%# place user profile image  %>
       <%= post.user.email %>
       <%# place when posted ... maybe post options such as public, friends, etc... %>
     </span>
     <p class="body">
-      <%= post.body %>
-      <%# turncate the post if too long %>
+      <% if char_count_high_for(post.body) %>
+        <%= post.body.truncate(400) %> <%= link_to "See More" %>
+      <% else %>
+        <%= post.body %>
+      <% end %>
     </p>
     <span class="stats">
+      <span>Like</span>
       <%# Likes, how many of them %>
+      <span style="float: right;">Comment</span>
       <%# Comments, how many comments %>
     </span>
+    <hr>
     <div class="actions">
       <%# Section where user can like, comment, maybe share %>
     </div>

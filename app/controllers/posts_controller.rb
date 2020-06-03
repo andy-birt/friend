@@ -2,6 +2,8 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user!
 
+  include PostsHelper
+
   def index
     # Need to filter out posts made by friends, or public, maybe both?? and limit them by 5?
     @posts = Post.all
