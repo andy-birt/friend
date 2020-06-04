@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   end
   
   resources :users do
-    resources :posts
+    resources :posts do
+      resources :comments
+      resources :likes
+    end
   end
 
   resources :notifications do
