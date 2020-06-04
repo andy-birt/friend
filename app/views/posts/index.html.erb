@@ -11,7 +11,7 @@
     </span>
     <p class="body">
       <% if char_count_high_for(post.body) %>
-        <%= post.body.truncate(400) %> <%= link_to "See More" %>
+        <%= post.body.truncate(400) %> <%= link_to "See More", user_post_path(id: post.id, user_id: post.author_id), class: "see-more" %>
       <% else %>
         <%= post.body %>
       <% end %>
