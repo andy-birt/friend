@@ -1,0 +1,10 @@
+<% if @comments.any? %>
+  <% @comments.each do |comment| %>
+    <div class="row">
+      <div class="col-4 mb-2"><%= comment.user.email %></div>
+      <div class="col-8 mb-2"><%= comment.body %></div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Be the first to comment!</p>
+<% end %>

@@ -1,0 +1,3 @@
+$(".post-<%= @post.id %> > .comments").html("<%= j(render("index")) %>")
+$(".post-<%= @post.id %> > .new-comment").html("<%= j(render("new")) %>")
+$(".post-<%= @post.id %> > .new-comment > form > textarea").focus()
