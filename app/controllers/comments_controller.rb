@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comments = @post.comments
     @post.comments.create(user: current_user, body: params[:body])
-    Notification.create(receiver: @post.author, actor: current_user, action: "commented", notifiable: @post)
+    Notification.create(receiver: @post.author, actor: current_user, action: "commented on", notifiable: @post)
     respond_to do |format|
       format.html { redirect_to @post }
       format.js
