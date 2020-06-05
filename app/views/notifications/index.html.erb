@@ -17,6 +17,10 @@
           <% else %>
             <div class="notification-message">You are now friends with <%= notification.actor.email %>.</div>
           <% end %>
+        <% when "Post" %>
+          <div class="notification-message">
+            <%= notification.actor.email %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>
+          </div>
         <% end %>
       </div>
     <% end %>

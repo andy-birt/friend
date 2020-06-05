@@ -1,0 +1,6 @@
+<% if @post.likes.count > 0 %>
+  $(".post-<%= @post.id %> > .stats > .likes").html("<%= escape_javascript(render('users/shared/likes', likes: @post.likes )) %>")
+<% else %>
+  $(".post-<%= @post.id %> > .stats > .likes").html("")
+<% end %>
+$(".post-<%= @post.id %> > .actions > .d-flex > .like").html("<%= j(render('shared/like_button', post: @post)) %>")

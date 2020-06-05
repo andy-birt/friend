@@ -1,0 +1,2 @@
+$(".post-<%= @post.id %> > .stats > .likes").html("<%= escape_javascript(render('users/shared/likes', likes: @post.likes )) %>")
+$(".post-<%= @post.id %> > .actions > .d-flex > .like").html("<%= j(render('shared/unlike_button', post: @post)) %>")
