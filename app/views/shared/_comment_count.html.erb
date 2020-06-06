@@ -1,5 +1,5 @@
 <% if post.comments.count > 0 %>
-  <%= button_to user_post_comments_path(post.author, post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
+  <%= button_to new_user_post_comment_path(post.author, post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
     <%= pluralize post.comments.count, "Comment" %>
   <% end %>
 <% end %>
