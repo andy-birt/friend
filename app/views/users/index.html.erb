@@ -1,0 +1,25 @@
+<h1>Welcome <%= current_user.email %> </h1>
+<%# Friends %>
+<h3>Friends</h3>
+<% current_user.friends.each do |friend| %>
+  <p><%= friend.email %> | <%= link_to 'Unfriend', friend_requests_path(user_id: friend), method: :delete %></p>
+<% end %>
+<%# Friend Requests Received  %>
+<h3>Friend Requests Received</h3>
+<% @fr_received.each do |request| %>
+  <p><%= request.user.email %> | <%= link_to 'Accept', friend_requests_path(user_id: request.user), method: :create %> | <%= link_to 'Decline', friend_requests_path(user_id: request.user), method: :delete %> </p>
+<% end %>
+<%# Friend Requests Sent %>
+<h3>Friend Requests Sent</h3>
+<% @fr_sent.each do |request| %>
+  <p><%= request.receiver.email %> | <%= link_to 'Cancel', friend_requests_path(user_id: current_user, receiver_id: request.receiver), method: :delete %> </p>
+<% end %>
+<%# No action taken %>
+<h3>No action taken</h3>
+<% @users.each do |user| %>
+  <% unless current_user.friend_requests.pluck(:receiver_id).include?(user.id) or user.friend_requests.pluck(:receiver_id).include?(current_user.id) %>
+    <p><%= user.email %> | <%= link_to 'Send Friend Request', friend_requests_path(user_id: user), method: :create %> </p>
+  <% end %>
+<% end %>
+
+<%= link_to 'Sign out', destroy_user_session_path %>

@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = Notification.where(receiver: current_user).order("updated_at DESC")
+    @notifications = Notification.where(receiver: current_user).order(updated_at: :desc)
   end
 
   def mark_as_read

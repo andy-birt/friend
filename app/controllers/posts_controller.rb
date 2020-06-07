@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
   def index
     # Need to filter out posts made by friends, or public, maybe both?? and limit them by 5?
-    @posts = Post.all
+    @posts = Post.where(author: current_user_and_friends).order(updated_at: :desc)
   end
 
   def new
