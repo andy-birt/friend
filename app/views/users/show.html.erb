@@ -1,0 +1,2 @@
+<%= image_tag(@user.avatar.variant(resize_to_fit: [75,75]), class: "rounded") if @user.avatar.attached? %>
+<%= @user.email %>

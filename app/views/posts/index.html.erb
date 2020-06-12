@@ -6,6 +6,7 @@
   <div class="post-<%= post.id %> mb-2">
     <span class="author">
       <%# place user profile image  %>
+      <%= image_tag(post.author.avatar.variant(resize_to_fill: [50, 50]), class: "rounded-circle") if post.author.avatar.attached? %>
       <%= post.author.email %>
       <%# place when posted ... maybe post options such as public, friends, etc... %>
     </span>

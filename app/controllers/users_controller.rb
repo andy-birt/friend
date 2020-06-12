@@ -4,4 +4,8 @@ class UsersController < ApplicationController
     @fr_sent = current_user.friend_requests.where(user_id: current_user.id, accepted: nil)
     @fr_received = FriendRequest.where(receiver_id: current_user.id, accepted: nil)
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
 end
