@@ -3,40 +3,40 @@
 <%= render "new" %>
 
 <% @posts.each do |post| %>
-  <div class="post-<%= post.id %> mb-2">
-    <span class="author">
+  <%= content_tag(:div, class: "post-#{post.id} mb-2") do %>
+    <%= content_tag(:div, class: "author mb-2") do %>
       <%# place user profile image  %>
       <%= image_tag(post.author.avatar.variant(resize_to_fill: [50, 50]), class: "rounded-circle") if post.author.avatar.attached? %>
-      <%= post.author.email %>
+      <%= content_tag :span, post.author.email, class: "font-weight-bold align-top" %>
       <%# place when posted ... maybe post options such as public, friends, etc... %>
-    </span>
-    <p class="body">
+    <% end %>
+    <%= content_tag(:p, class: "body") do %>
       <% if char_count_high_for(post.body) %>
         <%= post.body.truncate(400) %> <%= link_to "See More", user_post_path(post.author_id, post), class: "see-more" %>
       <% else %>
         <%= post.body %>
       <% end %>
-    </p>
+    <% end %>
     <%# Post stats %>
-    <span class="stats d-flex justify-content-between">
-      <span class="likes">
+    <%= content_tag(:span, class: "stats d-flex justify-content-between align-items-center") do %>
+      <%= content_tag(:span, class: "likes") do %>
         <% if post.likes.count > 0 %>
           <%= render "users/shared/likes", likes: post.likes %>
         <% end %>
-      </span>
-      <span class="comment-count"><%= render "shared/comment_count", post: post %></span>
-    </span>
+      <% end %>
+      <%= content_tag(:span, render("shared/comment_count", post: post), class: "comment-count") %>
+    <% end %>
     <hr>
     <%# Section where user can like, comment, maybe share %>
-    <div class="actions mb-2">
-      <div class="d-flex justify-content-around" role="group" aria-label="like and comment">
-        <div class="like">
+    <%= content_tag(:div, class: "actions mb-2") do %>
+      <%= content_tag(:div, class: "d-flex justify-content-around", role: "group") do %>
+        <%= content_tag(:div, class: "like") do %>
           <% if post.likes.pluck(:user_id).include?(current_user.id) %>
             <%= render "shared/unlike_button", post: post %>
           <% else %>
             <%= render "shared/like_button", post: post %>
           <% end %>
-        </div>
+        <% end %>
         <%= button_to new_user_post_comment_path(post.author_id, post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
           <strong>
             <svg class="bi bi-chat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -45,9 +45,9 @@
             <span class="align-middle">Comment</span>
           </strong>
         <% end %>
-      </div>
-    </div>
-    <div class="comments"></div>
-    <div class="new-comment"></div>
-  </div>
+      <% end %>
+    <% end %>
+    <%= content_tag(:div, nil, class: "comments") %>
+    <%= content_tag(:div, nil, class: "new-comment") %>
+  <% end %>
 <% end %>
