@@ -1,2 +1,5 @@
-<%= image_tag(@user.avatar.variant(resize_to_fit: [75,75]), class: "rounded") if @user.avatar.attached? %>
+<%= image_tag(@user.avatar.variant(resize_to_fill: [75,75]), class: "rounded-circle") if @user.avatar.attached? %>
 <%= @user.email %>
+<% @user.posts.each do |post| %>
+  <%= render(partial: "posts/show", locals: { post: post }) %>
+<% end %>
