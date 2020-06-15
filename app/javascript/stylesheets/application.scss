@@ -1,5 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 
+.navbar-nav {
+  .dropdown-menu {
+    position: absolute;
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
 .remember-box, .remember-text {
   border: none;
   background-color: transparent;

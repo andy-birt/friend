@@ -1,7 +1,4 @@
-<h1>Welcome <%= current_user.email %> </h1>
-
 <%= render "new" %>
-
 <% @posts.each do |post| %>
   <%= render(partial: "show", locals: { post: post }) %>
 <% end %>

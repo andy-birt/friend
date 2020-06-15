@@ -25,6 +25,9 @@ document.addEventListener("turbolinks:load", () => {
     case "/notifications":
       $(".notifications").addClass("active");
       break;
+    case "/users":
+      $(".users").addClass("active");
+      break;
   }
 
 })
