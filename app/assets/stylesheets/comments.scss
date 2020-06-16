@@ -5,3 +5,13 @@
 #body {
   resize: none;
 }
+
+.col-10.mb-2.bg-white.rounded {
+  .commenter {
+    font-size: .8em;
+    font-weight: bold;
+  }
+  .comment {
+    font-size: .85em;
+  }
+}
