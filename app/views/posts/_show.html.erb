@@ -1,6 +1,6 @@
 <%= content_tag(:div, class: "post-#{post.id} mb-2") do %>
   <%= content_tag(:div, class: "author mb-2") do %>
-    <%= image_tag(post.author.avatar.variant(resize_to_fill: [50, 50]), class: "rounded-circle") if post.author.avatar.attached? %>
+    <%= avatar(post.author, 50, 50) %>
     <%= content_tag :span, post.author.email, class: "font-weight-bold align-top" %>
   <% end %>
   <%= content_tag(:p, class: "body") do %>
