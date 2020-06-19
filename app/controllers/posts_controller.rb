@@ -5,7 +5,11 @@ class PostsController < ApplicationController
   include PostsHelper
 
   def index
-    @posts = Post.where(author: current_user_and_friends).order(updated_at: :desc)
+    @posts = Post.where(author: current_user_and_friends).order(updated_at: :desc).paginate(page: params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new

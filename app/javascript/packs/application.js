@@ -33,12 +33,29 @@ document.addEventListener("turbolinks:load", () => {
 })
 
 $(() => {
+  var pageNum = 1
   $("a[href='/notifications']").click((e) => {
     $.ajax({
       url: '/notifications/mark_as_read',
       method: 'POST'
     })
     .done((res) => res)
+  });
+  $(window).scroll(() => {
+    var lastPost = $("[class^='post']").last();
+    var offset = lastPost.offset();
+    var moreResults = $("a:contains('next')").length;
+    if (window.pageYOffset + window.innerHeight >= offset.top && moreResults) {
+      pageNum++;
+      var params = $.param({ page: pageNum })
+      $(".pagination").remove();
+      $.ajax({
+        url: '/?page='+pageNum,
+        dataType: "script",
+        method: 'GET'
+      })
+      .done((res) => res);
+    }
   });
 });
 
