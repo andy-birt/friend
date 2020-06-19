@@ -47,7 +47,6 @@ $(() => {
     var moreResults = $("a:contains('next')").length;
     if (window.pageYOffset + window.innerHeight >= offset.top && moreResults) {
       pageNum++;
-      var params = $.param({ page: pageNum })
       $(".pagination").remove();
       $.ajax({
         url: '/?page='+pageNum,
@@ -55,6 +54,8 @@ $(() => {
         method: 'GET'
       })
       .done((res) => res);
+    } else {
+      $(".pagination").remove();
     }
   });
 });
