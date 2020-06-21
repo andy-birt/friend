@@ -33,8 +33,7 @@ document.addEventListener("turbolinks:load", () => {
 })
 
 $(() => {
-  var pageNum = 1
-  $("a[href='/notifications']").click((e) => {
+  $("a[href='/notifications']").click(() => {
     $.ajax({
       url: '/notifications/mark_as_read',
       method: 'POST'
@@ -44,16 +43,17 @@ $(() => {
   $(window).scroll(() => {
     var lastPost = $("[class^='post']").last();
     var offset = lastPost.offset();
-    var moreResults = $("a:contains('next')").length;
-    if (window.pageYOffset + window.innerHeight >= offset.top && moreResults) {
-      pageNum++;
-      $(".pagination").remove();
-      $.ajax({
-        url: '/?page='+pageNum,
-        dataType: "script",
-        method: 'GET'
-      })
-      .done((res) => res);
+    var nextPage = $("a:contains('next')");
+    if (nextPage[0]) {
+      if (window.pageYOffset + window.innerHeight >= offset.top) {
+        $(".pagination").remove();
+        $.ajax({
+          url: nextPage[0].href,
+          dataType: "script",
+          method: 'GET'
+        })
+        .done((res) => res);
+      } 
     } else {
       $(".pagination").remove();
     }
