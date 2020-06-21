@@ -1,7 +1,16 @@
-<%= content_tag(:div, class: "post-#{post.id} mb-2") do %>
+<%= content_tag(:div, class: "post-#{post.id} mb-2 mt-2") do %>
   <%= content_tag(:div, class: "author mb-2") do %>
     <%= avatar(post.author, 50, 50) %>
-    <%= content_tag :span, post.author.email, class: "font-weight-bold align-top" %>
+    <%= content_tag(:span, post.author.email, class: "font-weight-bold align-top") %>
+    <%= content_tag(:div, class: "btn-group dropleft float-right") do %>
+      <% if current_user == post.author %>
+        <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
+      <% end %>
+      <%= content_tag(:div, class: "dropdown-menu") do %>
+        <%= link_to("Edit Post", edit_user_post_path(post.author_id, post), remote: true, class: "dropdown-item") %>
+        <%= link_to("Delete Post", user_post_path(post.author_id, post), remote: true, method: :delete, class: "dropdown-item") %>
+      <% end %>
+    <% end %>
   <% end %>
   <%= content_tag(:p, class: "body") do %>
     <% if char_count_high_for(post.body) %>
