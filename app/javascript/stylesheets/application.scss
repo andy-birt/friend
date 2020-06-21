@@ -6,6 +6,12 @@
   }
 }
 
+.dropleft {
+  .dropdown-toggle::before {
+    margin-right: 0;
+  }
+}
+
 .dropdown-toggle::after {
   display: none;
 }
