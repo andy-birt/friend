@@ -1,0 +1,6 @@
+var authorDiv = $(".post-<%= @post.id %> > .author")
+$(".post-<%= @post.id %> > .author > .btn-group").remove();
+$(".post-<%= @post.id %>").html(authorDiv).append("<%= j(render("edit")) %>")
+$(".post-<%= @post.id %> > form > #body").val("");
+$(".post-<%= @post.id %> > form > #body").val("<%= @post.body %>");
+$(".post-<%= @post.id %> > form > #body").focus();
