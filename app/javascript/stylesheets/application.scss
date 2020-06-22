@@ -52,6 +52,15 @@
   }
 }
 
+.list-group {
+  .list-group.list-group-horizontal {
+    .list-group-item {
+      line-height: 48px;
+      text-align: center;
+    }
+  }
+}
+
 @media screen and (min-width: 361px) {
   .notification-count {
     right: 0;
