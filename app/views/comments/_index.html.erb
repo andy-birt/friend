@@ -3,10 +3,21 @@
     <div class="row">
       <div class="col-1 mb-2"><%= avatar(comment.user, 20, 20) %></div>
       <div class="col-10 mb-2 bg-white rounded">
+        <%= content_tag(:div, class: "btn-group dropleft float-right") do %>
+          <% if current_user == comment.user %>
+            <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
+          <% end %>
+          <%= content_tag(:div, class: "dropdown-menu") do %>
+            <%= link_to("Edit Comment",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-comment-#{comment.id}"}) %>
+            <%= link_to("Delete Comment", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-comment-#{comment.id}"}) %>
+          <% end %>
+        <% end %>
         <span class="commenter"><%= comment.user.email %></span>
         <p class="comment"><%= comment.body %></p>
       </div>
     </div>
+    <%= render partial: 'shared/update', locals: { resource: comment, url: user_post_comment_path(current_user, comment.post, comment) } %>
+    <%= render partial: 'shared/delete', locals: { resource: comment, url: user_post_comment_path(current_user, comment.post, comment) } %>
   <% end %>
 <% else %>
   <p>Be the first to comment!</p>

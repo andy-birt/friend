@@ -1,0 +1,25 @@
+<div class="modal fade" id="update-<%= resource.class.to_s.downcase %>-<%= resource.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Post</h5>
+        <%= content_tag(:span, avatar(current_user, 50, 50), class: "float-right") %>
+      </div>
+      <%= form_with scope: resource.class.to_s.downcase.to_sym, url: url, method: :patch do |f| %>
+        <div class="modal-body">
+          <%= f.text_area :body, value: resource.body, class: "form-control mt-2 mb-2" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <%= f.button :submit, class: "btn btn-outline-info" do %>
+            <svg class="bi bi-file-text" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path stroke="currentColor" stroke-width=".5" fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+              <path stroke="currentColor" stroke-width=".5" fill-rule="evenodd" d="M4.5 10.5A.5.5 0 0 1 5 10h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <span class="align-middle">Update</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

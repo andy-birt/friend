@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: "User", foreign_key: :author_id
-  has_many :likes
-  has_many :comments
+  has_many :likes, dependent: :destroy
+  has_many :comments, -> { order(created_at: :asc) }, dependent: :destroy
   validates :body, presence: true
   scope :paginate, -> (page:, per_page: 5) {
     page = (page || 1).to_i

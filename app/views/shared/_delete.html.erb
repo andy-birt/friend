@@ -1,0 +1,16 @@
+<div class="modal fade" id="delete-<%= resource.class.to_s.downcase %>-<%= resource.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete <%= resource.class.to_s %></h5>
+      </div>
+      <div class="modal-body">
+        Really want to delete this <%= resource.class.to_s.downcase %>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+        <%= button_to("Delete", url, method: :delete, class: "btn btn-outline-danger") %>
+      </div>
+    </div>
+  </div>
+</div>

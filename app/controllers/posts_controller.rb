@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    current_user.posts.create(body: params[:post][:body])
+    current_user.posts.create(post_params)
     redirect_to root_url
   end
 
@@ -29,13 +29,24 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    redirect_to authenticated_root_path
   end
 
   def destroy
+    Post.find(params[:id]).destroy
+    flash[:success] = "Post was successfully deleted!"
+    redirect_to authenticated_root_path
   end
+
+  private
+
+    def post_params
+      params.require(:post).permit([:body])
+    end
 
 end
