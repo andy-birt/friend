@@ -8,6 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
+require("packs/avatar_upload")
 
 import "bootstrap"
 import "../stylesheets/application"

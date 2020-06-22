@@ -7,7 +7,9 @@
     <%= f.label :avatar do %>
       Avatar
       <br />
-      <%= image_tag(@user.avatar.variant(resize_to_fill: [75, 75]), class: "rounded-circle") if @user.avatar.attached? %>
+      <div class="avatar-img">
+        <%= avatar(current_user, 150, 150) %>
+      </div>
     <% end %>
     <%= f.file_field(:avatar, class: "d-none") %>
   </div>
