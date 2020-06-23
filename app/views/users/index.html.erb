@@ -1,22 +1,32 @@
 <%# Friends %>
-<h3>Friends (<%= current_user.friends.count %>)</h3>
 <div class="list-group">
+  <h3 class="list-group-item mb-0">Friends (<%= current_user.friends.count %>)</h3>
   <% current_user.friends.each do |friend| %>
     <div class="list-group list-group-horizontal">
       <%= link_to(user_path(friend), class: "list-group-item list-group-item-action") do %>
-        <%= avatar(friend, 50, 50) %> <%= friend.email %>
+        <div class="float-left">
+          <%= avatar(friend, 50, 50) %> 
+        </div>
+        <div class="text-align-center">
+          <%= friend.email %>
+        </div>
       <% end %>
       <%= link_to 'Unfriend', friend_requests_path(user_id: friend), method: :delete, class: "list-group-item list-group-item-action" %>
     </div>
   <% end %>
 </div>
 <%# Friend Requests Received  %>
-<h3>Friend Requests Received</h3>
 <div class="list-group">
+  <h3 class="list-group-item mb-0">Friend Requests Received</h3>
   <% @fr_received.each do |request| %>
     <div class="list-group list-group-horizontal">
       <%= link_to(user_path(request.user), class: "list-group-item list-group-item-action col-6") do %>
-        <%= avatar(request.user, 50, 50) %> <%= request.user.email %>
+        <div class="float-left">
+          <%= avatar(request.user, 50, 50) %> 
+        </div>
+        <div class="text-align-center">
+          <%= request.user.email %>
+        </div>
       <% end %>
       <%= link_to 'Accept', friend_requests_path(user_id: request.user), method: :create, class: "list-group-item list-group-item-action" %>
       <%= link_to 'Decline', friend_requests_path(user_id: request.user), method: :delete, class: "list-group-item list-group-item-action" %>
@@ -24,25 +34,35 @@
   <% end %>
 </div>
 <%# Friend Requests Sent %>
-<h3>Friend Requests Sent</h3>
 <div class="list-group">
+  <h3 class="list-group-item mb-0">Friend Requests Sent</h3>
   <% @fr_sent.each do |request| %>
     <div class="list-group list-group-horizontal">
       <%= link_to(user_path(request.receiver), class: "list-group-item list-group-item-action") do %>
-        <%= avatar(request.receiver, 50, 50) %> <%= request.receiver.email %>
+        <div class="float-left">
+          <%= avatar(request.receiver, 50, 50) %>
+        </div>
+        <div class="text-align-center">
+          <%= request.receiver.email %>
+        </div>
       <% end %>
       <%= link_to 'Cancel', friend_requests_path(user_id: current_user, receiver_id: request.receiver), method: :delete, class: "list-group-item list-group-item-action" %>
     </div>
   <% end %>
 </div>
 <%# No action taken %>
-<h3>Find Friends</h3>
 <div class="list-group">
+  <h3 class="list-group-item mb-0">Find Friends</h3>
   <% @users.each do |user| %>
     <% unless current_user.friend_requests.pluck(:receiver_id).include?(user.id) or user.friend_requests.pluck(:receiver_id).include?(current_user.id) %>
       <div class="list-group list-group-horizontal">
         <%= link_to(user_path(user), class:"list-group-item list-group-item-action") do %>
-          <%= avatar(user, 50, 50) %> <%= user.email %>
+          <div class="float-left">
+            <%= avatar(user, 50, 50) %>
+          </div>
+          <div class="text-align-center">
+            <%= user.email %>
+          </div>
         <% end %>
         <%= link_to 'Send Friend Request', friend_requests_path(user_id: user), method: :create, class:"list-group-item list-group-item-action" %>
       </div>
