@@ -7,8 +7,15 @@
         <% case notification.notifiable_type %>
         <% when "FriendRequest" %>
           <% unless notification.notifiable.accepted %>
-            <div class="notification-message">
-              <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+            <div class="notification-message row mb-1">
+              <div class="col-2 pr-0">
+                <%= avatar(notification.actor, 50, 50) %>
+              </div>
+              <div class="col-10 align-self-center">
+                <%= link_to user_path(notification.actor) do %>
+                  <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+                <% end %>
+              </div>
             </div>
             <div class="actions">
               <%= link_to 'Accept', friend_requests_path(user_id: notification.actor), method: :create, class: "btn btn-success" %>
@@ -18,8 +25,15 @@
             <div class="notification-message">You are now friends with <%= notification.actor.email %>.</div>
           <% end %>
         <% when "Post" %>
-          <div class="notification-message">
-            <%= notification.actor.email %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>
+          <div class="notification-message row">
+            <div class="col-2 pr-0">
+              <%= avatar(notification.actor, 50, 50) %>
+            </div>
+            <div class="col-10 align-self-center">
+              <a href="<%= user_post_path(notification.actor, notification.notifiable) %>">
+                <%= notification.actor.email %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+              </a>
+            </div>
           </div>
         <% end %>
       </div>

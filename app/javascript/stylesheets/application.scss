@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
+a {
+  color: $dark;
+}
+
 .navbar-nav {
   .dropdown-menu {
     position: absolute;
