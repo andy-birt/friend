@@ -1,4 +1,6 @@
-<%= form_with url: user_post_comments_path(@post.author_id, @post) do |f| %>
+<%= form_with model: Comment.new, url: user_post_comments_path(@post.author_id, @post) do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.text_area :body, placeholder: "Make a comment here...", class: "form-control mb-2 mt-3" %>
   <%= f.button :submit, class: "btn btn-success form-control mb-2" do %>
     <svg class="bi bi-chat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

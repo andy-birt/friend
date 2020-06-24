@@ -1,8 +1,8 @@
 <% if @comments.any? %>
   <% @comments.each do |comment| %>
-    <div class="row">
-      <div class="col-1 mb-2"><%= avatar(comment.user, 20, 20) %></div>
-      <div class="col-10 mb-2 bg-white rounded">
+    <div class="d-flex">
+      <div class="mb-2"><%= avatar(comment.user, 30, 30) %></div>
+      <div class="flex-fill mb-2 ml-2 pl-2 bg-white rounded">
         <%= content_tag(:div, class: "btn-group dropleft float-right") do %>
           <% if current_user == comment.user %>
             <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>

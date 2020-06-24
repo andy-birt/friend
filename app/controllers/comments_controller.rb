@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comments = @post.comments
     @post.comments.create(comment_params)
-    Notification.create(receiver: @post.author, actor: current_user, action: "commented on", notifiable: @post)
+    Notification.create(receiver: @post.author, actor: current_user, action: "commented on", notifiable: @post) unless current_user == @post.author
     respond_to do |format|
       format.html { redirect_to @post }
       format.js
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit(:body, :post, :user)
+      params.require(:comment).permit(:body, :post_id, :user_id)
     end
 
 end

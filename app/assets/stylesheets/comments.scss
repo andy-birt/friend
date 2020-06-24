@@ -2,11 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-#body {
+#comment_body {
   resize: none;
 }
 
-.col-10.mb-2.bg-white.rounded {
+.flex-fill.mb-2.ml-2.pl-2.bg-white.rounded {
   .commenter {
     font-size: .8em;
     font-weight: bold;
