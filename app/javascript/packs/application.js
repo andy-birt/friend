@@ -3,12 +3,14 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require("jquery")
-require("packs/avatar_upload")
+require("@rails/ujs").start();
+require("turbolinks").start();
+require("@rails/activestorage").start();
+require("channels");
+require("jquery");
+require("packs/avatar_upload");
+require("packs/mark_as_read");
+require("packs/page_scroll");
 
 import "bootstrap"
 import "../stylesheets/application"
@@ -31,34 +33,6 @@ document.addEventListener("turbolinks:load", () => {
       break;
   }
 
-})
-
-$(() => {
-  $("a[href='/notifications']").click(() => {
-    $.ajax({
-      url: '/notifications/mark_as_read',
-      method: 'POST'
-    })
-    .done((res) => res)
-  });
-  $(window).scroll(() => {
-    var lastPost = $("[class^='post']").last();
-    var offset = lastPost.offset();
-    var nextPage = $("a:contains('next')");
-    if (nextPage[0]) {
-      if (window.pageYOffset + window.innerHeight >= offset.top) {
-        $(".pagination").remove();
-        $.ajax({
-          url: nextPage[0].href,
-          dataType: "script",
-          method: 'GET'
-        })
-        .done((res) => res);
-      } 
-    } else {
-      $(".pagination").remove();
-    }
-  });
 });
 
 // Uncomment to copy all static images under ../images to the output folder and reference

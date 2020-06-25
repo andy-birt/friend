@@ -1,4 +1,4 @@
-<%= avatar(current_user, 75, 75) %>
+<%= avatar(@user, 75, 75) %>
 <%= @user.email %>
 <% @user.posts.each do |post| %>
   <%= render(partial: "posts/show", locals: { post: post }) %>
