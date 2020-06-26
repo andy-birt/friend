@@ -1,5 +1,7 @@
-<%= avatar(@user, 75, 75) %>
-<%= @user.email %>
+<div class="text-center mt-2">
+  <%= avatar(@user, 75, 75) %>
+  <%= @user.email %>
+</div>
 <% @user.posts.each do |post| %>
   <%= render(partial: "posts/show", locals: { post: post }) %>
 <% end %>
