@@ -3,15 +3,15 @@
   <h3 class="list-group-item mb-0">Friends (<%= current_user.friends.count %>)</h3>
   <% current_user.friends.each do |friend| %>
     <div class="list-group list-group-horizontal">
-      <%= link_to(user_path(friend), class: "list-group-item flex-grow-1") do %>
-        <div class="float-left">
-          <%= avatar(friend, 50, 50) %> 
+      <%= link_to(user_path(friend), class: "d-flex list-group-item flex-grow-1") do %>
+        <div class="pr-2">
+          <%= avatar(friend, 45, 45) %> 
         </div>
-        <div class="text-align-center">
+        <div class="align-self-center">
           <%= friend.email %>
         </div>
       <% end %>
-      <%= link_to 'Unfriend', friend_requests_path(user_id: friend), method: :delete, class: "list-group-item" %>
+      <%= link_to 'Unfriend', friend_requests_path(user_id: friend), method: :delete, class: "list-group-item align-self-center py-4" %>
     </div>
   <% end %>
 </div>
@@ -20,16 +20,18 @@
   <h3 class="list-group-item mb-0">Friend Requests Received</h3>
   <% @fr_received.each do |request| %>
     <div class="list-group list-group-horizontal">
-      <%= link_to(user_path(request.user), class: "list-group-item list-group-item-action col-6") do %>
-        <div class="float-left">
-          <%= avatar(request.user, 50, 50) %> 
+      <%= link_to(user_path(request.user), class: "d-flex list-group-item flex-grow-1") do %>
+        <div class="align-self-center pr-2">
+          <%= avatar(request.user, 45, 45) %> 
         </div>
-        <div class="text-align-center">
+        <div class="align-self-center">
           <%= request.user.email %>
         </div>
       <% end %>
-      <%= link_to 'Accept', friend_requests_path(user_id: request.user), method: :create, class: "list-group-item list-group-item-action" %>
-      <%= link_to 'Decline', friend_requests_path(user_id: request.user), method: :delete, class: "list-group-item list-group-item-action" %>
+      <div class="list-group">
+        <%= link_to 'Accept', friend_requests_path(user_id: request.user), method: :create, class: "list-group-item" %>
+        <%= link_to 'Decline', friend_requests_path(user_id: request.user), method: :delete, class: "list-group-item" %>
+      </div>
     </div>
   <% end %>
 </div>
@@ -38,15 +40,15 @@
   <h3 class="list-group-item mb-0">Friend Requests Sent</h3>
   <% @fr_sent.each do |request| %>
     <div class="list-group list-group-horizontal">
-      <%= link_to(user_path(request.receiver), class: "list-group-item list-group-item-action") do %>
-        <div class="float-left">
-          <%= avatar(request.receiver, 50, 50) %>
+      <%= link_to(user_path(request.receiver), class: "d-flex list-group-item flex-grow-1") do %>
+        <div class="align-self-center pr-2">
+          <%= avatar(request.receiver, 45, 45) %>
         </div>
-        <div class="text-align-center">
+        <div class="align-self-center">
           <%= request.receiver.email %>
         </div>
       <% end %>
-      <%= link_to 'Cancel', friend_requests_path(user_id: current_user, receiver_id: request.receiver), method: :delete, class: "list-group-item list-group-item-action" %>
+      <%= link_to 'Cancel', friend_requests_path(user_id: current_user, receiver_id: request.receiver), method: :delete, class: "list-group-item align-self-center py-4" %>
     </div>
   <% end %>
 </div>
@@ -56,15 +58,15 @@
   <% @users.each do |user| %>
     <% unless current_user.friend_requests.pluck(:receiver_id).include?(user.id) or user.friend_requests.pluck(:receiver_id).include?(current_user.id) %>
       <div class="list-group list-group-horizontal">
-        <%= link_to(user_path(user), class:"list-group-item list-group-item-action") do %>
-          <div class="float-left">
-            <%= avatar(user, 50, 50) %>
+        <%= link_to(user_path(user), class:"d-flex list-group-item flex-grow-1") do %>
+          <div class="align-self-center pr-2">
+            <%= avatar(user, 45, 45) %>
           </div>
-          <div class="text-align-center">
+          <div class="align-self-center">
             <%= user.email %>
           </div>
         <% end %>
-        <%= link_to 'Send Friend Request', friend_requests_path(user_id: user), method: :create, class:"list-group-item list-group-item-action" %>
+        <%= link_to 'Add Friend', friend_requests_path(user_id: user), method: :create, class:"list-group-item align-self-center py-4" %>
       </div>
     <% end %>
   <% end %>
