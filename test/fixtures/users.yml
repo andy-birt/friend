@@ -1,11 +1,17 @@
 jim: 
+  first_name: "Jim"
+  last_name: "Johnson"
   email: "jim@pew.com"
   encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>
 
 frank: 
+  first_name: "Frank"
+  last_name: "Workman"
   email: "frank@bomb.com"
   encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>
 
 alice:
+  first_name: "Alice"
+  last_name: "Rizzo"
   email: "alice@girl.com"
   encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>

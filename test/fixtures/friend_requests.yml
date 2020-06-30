@@ -4,6 +4,10 @@ jim_frank:
   user: jim
   receiver: frank
 
+frank_alice:
+  user: alice
+  receiver: frank
+
 two:
   user: alice
   receiver: jim

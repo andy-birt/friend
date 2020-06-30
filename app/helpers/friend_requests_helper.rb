@@ -45,7 +45,7 @@ module FriendRequestsHelper
       cancelled.destroy
       flash[:success] = "Cancelled friend request"
       redirect_to root_url
-    elsif declined = FriendRequest.find_by(user_id: params[:user_id])
+    elsif declined = FriendRequest.find_by(user_id: params[:user_id], receiver_id: params[:receiver_id])
       Notification.find_by(notifiable_id: declined.id).destroy
       declined.destroy
       flash[:success] = "Declined friend request"

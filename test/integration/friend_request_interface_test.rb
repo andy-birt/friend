@@ -26,7 +26,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
   test "cancel a friend request" do
     
     sign_in @jim
-    get root_url
+    get users_path
     assert_select "a[href=?]", friend_requests_path(user_id: @fr.user.id, receiver_id: @fr.receiver.id)
     assert_difference "@jim.friend_requests.count", -1 do
       delete friend_requests_path(user_id: @fr.user.id, receiver_id: @fr.receiver.id)
@@ -41,10 +41,10 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
   test "decline a friend request" do
   
     sign_in @frank
-    get root_url
+    get users_path
     assert_select "a[href=?]", friend_requests_path(user_id: @fr.user.id)
     assert_difference "@jim.friend_requests.count", -1 do
-      delete friend_requests_path(user_id: @fr.user.id)
+      delete friend_requests_path(user_id: @fr.user_id, receiver_id: @fr.receiver_id)
       assert_equal "Declined friend request", flash[:success]
       assert_response :redirect
       follow_redirect!
@@ -60,7 +60,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
     assert @jim.friend_requests.empty?
 
     sign_in @jim
-    get root_url
+    get users_path
     assert_select "a[href=?]", friend_requests_path(user_id: @frank.id)
     assert_difference "@jim.friend_requests.count" do
       post friend_requests_path, params: { user_id: @frank.id }
@@ -75,7 +75,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
   test "accept a friend request" do
     
     sign_in @frank
-    get root_url
+    get users_path
     assert_select "a[href=?]", friend_requests_path(user_id: @jim.id)
     assert_difference "@jim.friends.count" do
       post friend_requests_path, params: { user_id: @jim.id }
@@ -90,7 +90,7 @@ class FriendRequestInterfaceTest < ActionDispatch::IntegrationTest
   test "unfriend a friend" do
   
     sign_in @alice
-    get root_url
+    get users_path
     assert_select "a[href=?]", friend_requests_path(user_id: @jim.id)
     assert_equal @jim.friends.count, 1
     assert_difference "@alice.friends.count", -1 do
