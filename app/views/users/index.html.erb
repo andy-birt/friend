@@ -8,7 +8,7 @@
           <%= avatar(friend, 45, 45) %> 
         </div>
         <div class="align-self-center">
-          <%= friend.email %>
+          <%= friend.full_name %>
         </div>
       <% end %>
       <%= link_to 'Unfriend', friend_requests_path(user_id: friend), method: :delete, class: "list-group-item align-self-center py-4" %>
@@ -25,12 +25,12 @@
           <%= avatar(request.user, 45, 45) %> 
         </div>
         <div class="align-self-center">
-          <%= request.user.email %>
+          <%= request.user.full_name %>
         </div>
       <% end %>
       <div class="list-group">
-        <%= link_to 'Accept', friend_requests_path(user_id: request.user), method: :create, class: "list-group-item" %>
-        <%= link_to 'Decline', friend_requests_path(user_id: request.user), method: :delete, class: "list-group-item" %>
+        <%= link_to 'Accept',  friend_requests_path(user_id: request.user, receiver_id: request.receiver), method: :create, class: "list-group-item" %>
+        <%= link_to 'Decline', friend_requests_path(user_id: request.user, receiver_id: request.receiver), method: :delete, class: "list-group-item" %>
       </div>
     </div>
   <% end %>
@@ -45,7 +45,7 @@
           <%= avatar(request.receiver, 45, 45) %>
         </div>
         <div class="align-self-center">
-          <%= request.receiver.email %>
+          <%= request.receiver.full_name %>
         </div>
       <% end %>
       <%= link_to 'Cancel', friend_requests_path(user_id: current_user, receiver_id: request.receiver), method: :delete, class: "list-group-item align-self-center py-4" %>
@@ -63,7 +63,7 @@
             <%= avatar(user, 45, 45) %>
           </div>
           <div class="align-self-center">
-            <%= user.email %>
+            <%= user.full_name %>
           </div>
         <% end %>
         <%= link_to 'Add Friend', friend_requests_path(user_id: user), method: :create, class:"list-group-item align-self-center py-4" %>

@@ -13,16 +13,16 @@
               </div>
               <div class="col-10 align-self-center">
                 <%= link_to user_path(notification.actor) do %>
-                  <%= notification.actor.email %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+                  <%= notification.actor.full_name %> <%= notification.action %> you a <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
                 <% end %>
               </div>
             </div>
             <div class="actions">
-              <%= link_to 'Accept', friend_requests_path(user_id: notification.actor), method: :create, class: "btn btn-success" %>
-              <%= link_to 'Decline', friend_requests_path(user_id: notification.actor), method: :delete, class: "btn btn-secondary" %>
+              <%= link_to 'Accept',  friend_requests_path(user_id: notification.actor, receiver_id: notification.receiver), method: :create, class: "btn btn-success" %>
+              <%= link_to 'Decline', friend_requests_path(user_id: notification.actor, receiver_id: notification.receiver), method: :delete, class: "btn btn-secondary" %>
             </div>
           <% else %>
-            <div class="notification-message">You are now friends with <%= notification.actor.email %>.</div>
+            <div class="notification-message">You are now friends with <%= notification.actor.full_name %>.</div>
           <% end %>
         <% when "Post" %>
           <div class="notification-message row">
@@ -31,7 +31,7 @@
             </div>
             <div class="col-10 align-self-center">
               <a href="<%= user_post_path(notification.actor, notification.notifiable) %>">
-                <%= notification.actor.email %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+                <%= notification.actor.full_name %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
               </a>
             </div>
           </div>

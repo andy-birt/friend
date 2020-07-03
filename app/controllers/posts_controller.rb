@@ -32,13 +32,13 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
     @post.update(post_params)
     redirect_to authenticated_root_path
   end
 
   def destroy
-    Post.find(params[:id]).destroy
+    current_user.posts.find(params[:id]).destroy
     flash[:success] = "Post was successfully deleted!"
     redirect_to authenticated_root_path
   end

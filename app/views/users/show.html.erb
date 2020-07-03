@@ -2,9 +2,8 @@
   <div>
     <%= avatar(@user, 75, 75) %>
   </div>
-  <div>
-    <%= @user.email %>
-  </div>
+  <div><strong><%= @user.full_name %></strong></div>
+  <div><%= @user.email %></div>
 </div>
 <% @user.posts.each do |post| %>
   <%= render(partial: "posts/show", locals: { post: post }) %>

@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     @jim = users(:jim)
   end
@@ -19,5 +18,4 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
     assert_equal "You need to sign in or sign up before continuing.", flash[:alert]
   end
-
 end

@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  
+  before_action :authenticate_user!
+
   def index
     @post = Post.find(params[:post_id])
     @comments = @post.comments
@@ -31,7 +34,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find(params[:id]).destroy
+    current_user.comments.find(params[:id]).destroy
     flash[:success] = "Comment deleted!"
     redirect_to user_post_path(params[:user_id], params[:post_id])
   end
@@ -39,7 +42,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit(:body, :post_id, :user_id)
+      params.require(:comment).permit(:body, :user_id, :post_id)
     end
 
 end

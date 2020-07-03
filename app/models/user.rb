@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   attr_accessor :full_name
 
+  before_commit :capitalize_name
+
   VALID_NAME = /\A\p{Lu}\p{Ll}+\z/
   validates :first_name, :last_name, presence: true, format: { with: VALID_NAME }
 
@@ -16,11 +18,17 @@ class User < ApplicationRecord
   has_many :friend_requests, dependent: :destroy
   has_many :accepted_requests, -> { where accepted: true }, class_name: "FriendRequest", dependent: :destroy
   has_many :friends, through: :accepted_requests, source: :receiver
+  has_many :comments, dependent: :destroy
 
   def full_name
     name = []
     name << first_name << last_name
     name.join(" ")
+  end
+
+  def capitalize_name
+    self.first_name = first_name.capitalize
+    self.last_name = last_name.capitalize
   end
 
 end
