@@ -1,4 +1,4 @@
 <% @posts.each do |post| %>
   var posts = $('.container').last();
-  posts.append("<%= j(render(partial: "show", locals: { post: post })) %>")
+  posts.append("<%= j(render(partial: "posts/show", locals: { post: post })) %>")
 <% end %>

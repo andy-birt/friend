@@ -39,7 +39,7 @@ class PostInterfaceTest < ActionDispatch::IntegrationTest
       delete user_post_path(@user, @user.posts.first)
     end
     # Visit another user
-    get user_path(users(:jim))
+    get user_path(users(:jim).id)
     assert_select "a", text: "Delete Post", count: 0
   end
 

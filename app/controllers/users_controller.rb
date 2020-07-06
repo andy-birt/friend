@@ -8,5 +8,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts.order(created_at: :desc).paginate(page: params[:page])
+    respond_to do |format|
+      format.html
+      format.js { render template: "posts/index.js.erb" }
+    end
   end
 end

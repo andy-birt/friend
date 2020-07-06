@@ -1,10 +1,14 @@
-<div class="text-center mt-2">
+<div class="text-center my-4">
   <div>
     <%= avatar(@user, 75, 75) %>
   </div>
   <div><strong><%= @user.full_name %></strong></div>
   <div><%= @user.email %></div>
+  <% unless current_user == @user %>
+    <%= generate_action_button_for(@user) %>
+  <% end %>
 </div>
-<% @user.posts.each do |post| %>
+<% @posts.each do |post| %>
   <%= render(partial: "posts/show", locals: { post: post }) %>
 <% end %>
+<%= paginate @posts %>
