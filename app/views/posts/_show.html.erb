@@ -1,17 +1,22 @@
 <%= content_tag(:div, class: "post-#{post.id} mb-2 mt-2") do %>
-  <%= content_tag(:div, class: "author mb-2") do %>
-    <%= avatar(post.author, 50, 50) %>
-    <%= content_tag(:span, post.author.full_name, class: "font-weight-bold align-top") %>
-    <% if current_user == post.author %>
-      <%= content_tag(:div, class: "btn-group dropleft float-right") do %>
-        <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
-        <%= content_tag(:div, class: "dropdown-menu") do %>
-          <%= link_to("Edit Post",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-post-#{post.id}"}) %>
-          <%= link_to("Delete Post", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-post-#{post.id}"}) %>
-        <% end %>
-        <%= render partial: 'shared/update', locals: { resource: post, url: user_post_path(current_user, post) } %>
-        <%= render partial: 'shared/delete', locals: { resource: post, url: user_post_path(current_user, post) } %>
+  <% if current_user == post.author %>
+    <%= content_tag(:div, class: "btn-group dropleft float-right align-top") do %>
+      <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
+      <%= content_tag(:div, class: "dropdown-menu") do %>
+        <%= link_to("Edit Post",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-post-#{post.id}"}) %>
+        <%= link_to("Delete Post", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-post-#{post.id}"}) %>
       <% end %>
+      <%= render partial: 'shared/update', locals: { resource: post, url: user_post_path(current_user, post) } %>
+      <%= render partial: 'shared/delete', locals: { resource: post, url: user_post_path(current_user, post) } %>
+    <% end %>
+  <% end %>
+  <%= content_tag(:div, class: "author mb-2") do %>
+    <div class="float-left mr-2">
+      <%= avatar(post.author, 50, 50) %>
+    </div>
+    <%= content_tag(:span, class: "d-flex font-weight-bold flex-column") do %>
+      <%= post.author.full_name %>
+      <%= content_tag(:small, time_ago_in_words(post.created_at), class: "") %>
     <% end %>
   <% end %>
   <%= content_tag(:p, class: "body") do %>
