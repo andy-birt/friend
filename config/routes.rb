@@ -32,4 +32,6 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
 
+  get "/privacy-policy", to: "static#privacy_policy"
+
 end
