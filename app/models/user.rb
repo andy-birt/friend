@@ -7,8 +7,7 @@ class User < ApplicationRecord
 
   before_save :capitalize_name
 
-  VALID_NAME = /\A\p{Lu}\p{Ll}+\z/
-  validates :first_name, :last_name, presence: true, format: { with: VALID_NAME }
+  validates :first_name, :last_name, presence: true
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
@@ -33,16 +32,28 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    user = User.find_by(uid: auth.uid)
     name = auth.info.name.split(" ")
     file = open(auth.info.image)
-    user = find_or_initialize_by(provider: auth.provider, uid: auth.uid)
-    user.first_name = name[0]
-    user.last_name = name[1]
-    user.email = auth.info.email
-    user.password = Devise.friendly_token[0, 20]
-    user.avatar.attach(io: file, filename: "#{auth.uid}.#{file.meta["content-type"].split("/").last}", content_type: file.meta["content-type"])
-    user.save
-    user
+    if user.present?
+      user.first_name = name[0]
+      user.last_name = name[1]
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.avatar.attach(io: file, filename: "#{auth.uid}.#{file.meta["content-type"].split("/").last}", content_type: file.meta["content-type"])
+      user.save
+      user
+    else
+      user = User.new(provider: auth.provider, uid: auth.uid)
+      user.first_name = name[0]
+      user.last_name = name[1]
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.avatar.attach(io: file, filename: "#{auth.uid}.#{file.meta["content-type"].split("/").last}", content_type: file.meta["content-type"])
+      user.save
+      UserMailer.welcome_email(user).deliver
+      user
+    end
   end
 
   def self.new_with_session(params, session)

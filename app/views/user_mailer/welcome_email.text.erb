@@ -1,0 +1,8 @@
+Welcome to Friend, <%= @user.first_name %>!
+===========================================
+<% if @user.provider %>
+  You have successfully signed up to Friend using <%= @user.provider %>!
+<% else %>
+  You have successfully signed up to Friend!
+<% end %>
+Thanks for joining and have a great day!
