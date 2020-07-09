@@ -1,4 +1,20 @@
 module ApplicationHelper
+  def resource
+    @resource ||= User.new
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource_class
+    User
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
   def avatar(user, w, h)
     if user.avatar.attached?
       image_tag(user.avatar.variant(resize_to_fill: [w, h]), class: "rounded-circle")
