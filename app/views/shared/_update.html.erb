@@ -7,7 +7,11 @@
       </div>
       <%= form_with scope: resource.class.to_s.downcase.to_sym, url: url, method: :patch do |f| %>
         <div class="modal-body">
-          <%= f.text_area :body, value: resource.body, class: "form-control mt-2 mb-2" %>
+          <% unless resource.is_a?(Photo) %>
+            <%= f.text_area :body, value: resource.body, class: "form-control mt-2 mb-2" %>
+          <% else %>
+            <%= f.text_area :caption, value: resource.caption, class: "form-control mt-2 mb-2" %>
+          <% end %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>

@@ -16,8 +16,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    current_user.posts.create(post_params)
-    redirect_to root_url
+    @post = current_user.posts.build(post_params)
+    create_photos if images_present?
+    if @post.save
+      flash[:success] = "Post was created!"
+      redirect_to root_url
+    else
+      @post.errors.each do |attri, msg|
+       flash[:danger] = msg
+      end
+      redirect_to root_url
+    end
   end
 
   def show
@@ -46,7 +55,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit([:body])
+      params.require(:post).permit(:body, photos_attributes: [:caption, :_destroy, image: [].first])
     end
 
 end

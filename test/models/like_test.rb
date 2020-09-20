@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LikeTest < ActiveSupport::TestCase
   def setup
-    @like = Like.new(user_id: users(:alice).id, post_id: posts(:one).id)
+    @like = Like.new(user_id: users(:alice).id, likable: posts(:one))
   end
 
   test "should be valid" do
@@ -10,7 +10,7 @@ class LikeTest < ActiveSupport::TestCase
   end
 
   test "should have post_id" do
-    @like.post_id = nil
+    @like.likable_id = nil
     assert_not @like.valid?
   end
 

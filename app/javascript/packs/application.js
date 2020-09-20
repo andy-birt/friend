@@ -9,6 +9,7 @@ require("@rails/activestorage").start();
 require("channels");
 require("jquery");
 require("packs/avatar_upload");
+require("packs/post");
 require("packs/mark_as_read");
 require("packs/page_scroll");
 

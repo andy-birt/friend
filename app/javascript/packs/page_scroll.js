@@ -1,11 +1,10 @@
 $(document).on("turbolinks:load", () => {
-  var posts = $("[class^='post']")
-  
-  if (posts.length <= 5 && !$("a:contains('next')")[0]) {
+  if ($("[class^='post-']").length <= 5 && !$("a:contains('next')")[0]) {
     $(".pagination").remove();
   } else {
-    $(window).scroll(() => {
-      var lastPost = $("[class^='post']").last();
+    $(window).on("scroll", (() => {
+      var posts = $("[class^='post-']");
+      var lastPost = posts.last();
       var nextPage = $("a:contains('next')");
       var offset = lastPost.offset();
       if (nextPage[0]) {
@@ -15,12 +14,11 @@ $(document).on("turbolinks:load", () => {
             url: nextPage[0].href,
             dataType: "script",
             method: 'GET'
-          })
-          .done((res) => res);
+          }).done(res => res);
         } 
       } else {
         $(".pagination").remove();
       }
-    });
+    }));
   }
 });

@@ -1,0 +1,5 @@
+<%= content_tag(:div, class: "photo-#{photo.id} mb-2 mt-2") do %>
+  <%= render("shared/post_top", post: photo, user: photo.user) %>
+  <%= image_tag(photo.image.variant(resize_to_fill: [670, 400]), width: "100%", class: "mb-2 mt-2") %>
+  <%= render("shared/post_bottom", post: photo, user: photo.user) %>
+<% end %>

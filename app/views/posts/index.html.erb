@@ -1,5 +1,11 @@
 <%= render "new" %>
-<% @posts.each do |post| %>
-  <%= render(partial: "show", locals: { post: post }) %>
-<% end %>
+<div class="feed">
+  <% @posts.each do |post| %>
+    <% if post.photos.length == 1 %>
+      <%= render(partial: "photos/show", locals: { photo: post.photos.first }) %>
+    <% else %>
+      <%= render(partial: "show", locals: { post: post, user: post.author }) %>
+    <% end %>
+  <% end %>
+</div>
 <%= paginate @posts %>

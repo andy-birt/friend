@@ -14,12 +14,31 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: "users/registrations#new"
   end
+
+  concern :likable do |options|
+    resources :likes, **options
+  end
+  
+  concern :commentable do |options|
+    resources :comments, **options do
+      concerns :likable, module: :comments
+    end
+  end
+
+  concern :posts do
+    resources :posts do
+      concerns :commentable, module: :posts
+      concerns :likable, module: :posts
+    end
+  end
   
   resources :users do
-    resources :posts do
-      resources :comments
-      resources :likes
-    end
+    concerns :posts
+  end
+
+  resources :photos do
+    concerns :commentable, module: :photos
+    concerns :likable, module: :photos
   end
 
   resources :notifications do

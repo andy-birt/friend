@@ -1,12 +1,8 @@
-// Place all the styles related to the posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
-
-#post_body {
+#post_body, #post_photo_attributes_0_caption {
   resize: none;
 }
 
-div[class^=post] {
+div[class^=post-], div[class^=photo-] {
   background: var(--light);
   border-radius: 5px;
   padding: 5px 10px;

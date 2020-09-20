@@ -35,6 +35,28 @@
               </a>
             </div>
           </div>
+        <% when "Photo" %>
+          <div class="notification-message row">
+            <div class="col-2 pr-0">
+              <%= avatar(notification.actor, 50, 50) %>
+            </div>
+            <div class="col-10 align-self-center">
+              <a href="<%= photo_path(notification.notifiable) %>">
+                <%= notification.actor.full_name %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+              </a>
+            </div>
+          </div>
+        <% else %>
+          <div class="notification-message row">
+            <div class="col-2 pr-0">
+              <%= avatar(notification.actor, 50, 50) %>
+            </div>
+            <div class="col-10 align-self-center">
+              <a href="<%= resource_path(notification.notifiable.commentable) %>">
+                <%= notification.actor.full_name %> <%= notification.action %> your <%= notification.notifiable.class.to_s.underscore.humanize.downcase %>.
+              </a>
+            </div>
+          </div>
         <% end %>
       </div>
     <% end %>

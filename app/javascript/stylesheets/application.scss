@@ -2,6 +2,9 @@
 
 a {
   color: $dark;
+  &:hover{
+    text-decoration: none;
+  }
 }
 
 .navbar-nav {

@@ -3,22 +3,20 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comments = @commentable.comments
   end
 
   def new
-    @post = Post.find(params[:post_id])
-    @comments = @post.comments
+    @comments = @commentable.comments
   end
 
   def create
-    @post = Post.find(params[:post_id])
-    @comments = @post.comments
-    @post.comments.create(comment_params)
-    Notification.create(receiver: @post.author, actor: current_user, action: "commented on", notifiable: @post) unless current_user == @post.author
+    @comments = @commentable.comments
+    @commentable.comments.create(comment_params)
+    author = helpers.get_user(@commentable)
+    Notification.create(receiver: author, actor: current_user, action: "commented on", notifiable: @commentable) unless current_user == author
     respond_to do |format|
-      format.html { redirect_to @post }
+      format.html { redirect_to @commentable }
       format.js
     end
   end
@@ -27,22 +25,21 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
     @comment.update(comment_params)
-    redirect_to user_post_path(@post.author_id, @post)
+    redirect_to user_post_path(@commentable, @commentable)
   end
 
   def destroy
     current_user.comments.find(params[:id]).destroy
     flash[:success] = "Comment deleted!"
-    redirect_to user_post_path(params[:user_id], params[:post_id])
+    redirect_to user_post_path(current_user, @commentable)
   end
 
   private
 
     def comment_params
-      params.require(:comment).permit(:body, :user_id, :post_id)
+      params.require(:comment).permit(:body, :user_id, :commentable_id, :commentable_type)
     end
 
 end

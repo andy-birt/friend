@@ -1,0 +1,47 @@
+<% if current_user == user %>
+  <%= content_tag(:div, class: "btn-group dropleft float-right align-top") do %>
+    <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
+    <%= content_tag(:div, class: "dropdown-menu") do %>
+      <% if post.is_a?(Post) %>
+        <%= link_to("Edit Post",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-post-#{post.id}"}) %>
+        <%= link_to("Delete Post", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-post-#{post.id}"}) %>
+      <% else %>
+        <%= link_to("Edit Photo",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-photo-#{post.id}"}) %>
+        <%= link_to("Delete Photo", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-photo-#{post.id}"}) %>
+      <% end %>
+    <% end %>
+    <% if post.is_a?(Post) %>
+      <%= render partial: 'shared/update', locals: { resource: post, url: user_post_path(current_user, post) } %>
+      <%= render partial: 'shared/delete', locals: { resource: post, url: user_post_path(current_user, post) } %>
+    <% else %>
+      <%= render partial: 'shared/update', locals: { resource: post, url: photo_path(post) } %>
+      <%= render partial: 'shared/delete', locals: { resource: post, url: photo_path(post) } %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= content_tag(:div, class: "author mb-2") do %>
+  <div class="float-left mr-2">
+    <%= avatar(user, 50, 50) %>
+  </div>
+  <%= content_tag(:span, class: "d-flex font-weight-bold flex-column") do %>
+    <%= user.full_name %>
+    <%= content_tag(:small, time_ago_in_words(post.created_at), class: "") %>
+  <% end %>
+<% end %>
+<% if post.is_a?(Post) %>
+  <%= content_tag(:p, class: "body mt-3") do %>
+    <% if char_count_high_for(post.body) %>
+      <%= post.body.truncate(400) %> <%= link_to("See More", user_post_path(user, post), remote: true, class: "see-more") %>
+    <% else %>
+      <%= post.body %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= content_tag(:p, class: "caption mt-3") do %>
+    <% if char_count_high_for(post.caption) %>
+      <%= post.caption.truncate(400) %> <%= link_to("See More", user_post_path(user, post), remote: true, class: "see-more") %>
+    <% else %>
+      <%= post.caption %>
+    <% end %>
+  <% end %>
+<% end %>

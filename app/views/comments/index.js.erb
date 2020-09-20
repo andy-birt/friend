@@ -1,1 +1,1 @@
-$(".post-<%= @post.id %> > .comments").html("<%= j(render("index")) %>")
+$(".<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %> > .comments").html("<%= j(render("index")) %>")

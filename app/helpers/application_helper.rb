@@ -11,8 +11,32 @@ module ApplicationHelper
     User
   end
 
+  def like_link(likable)
+    unless likable.commentable.is_a?(Photo)
+      [get_user(likable), likable.commentable, likable, :likes]
+    else
+      [likable.commentable, likable, :likes]
+    end    
+  end
+
+  def unlike_link(likable)
+    unless likable.commentable.is_a?(Photo)
+      [get_user(likable), likable.commentable, likable, likable.likes.where(user_id: current_user.id).first]
+    else
+      [likable.commentable, likable, likable.likes.where(user_id: current_user.id).first]
+    end  
+  end
+
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def get_user(post)
+    unless post.is_a?(Photo)
+      post.author
+    else
+      post.user
+    end
   end
 
   def avatar(user, w, h)
@@ -25,7 +49,6 @@ module ApplicationHelper
 
   def paginate(result)
     content_tag :div, class: "pagination" do
-      concat(render_pagination_link "previous", result.current_page - 1, result.current_page <= 1)
       concat(render_pagination_link "next", result.current_page + 1, result.current_page >= result.total_pages)
     end
   end

@@ -1,3 +1,4 @@
-$(".post-<%= @post.id %> > .comments").html("<%= j(render("index")) %>")
-$(".post-<%= @post.id %> > .new-comment").html("<%= j(render("new")) %>")
-$(".post-<%= @post.id %> > .new-comment > form > textarea").focus()
+$(".<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %> > .comments").html("<%= j(render("index")) %>")
+$(".<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %> > .new-comment").html("<%= j(render("new")) %>")
+$(".<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %> > .new-comment > form > textarea").focus()
+$(window).scrollTop($(".<%= @commentable.class.to_s.downcase %>-<%= @commentable.id %> > .new-comment > form > button").offset().top - 620)

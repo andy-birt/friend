@@ -1,6 +1,18 @@
-<% if @post.likes.count > 0 %>
-  $(".post-<%= @post.id %> > .stats > .likes").html("<%= escape_javascript(render('users/shared/likes', likes: @post.likes )) %>")
+<% if @likable.likes.count > 0 %>
+  <% if @likable.class.to_s == "Comment" %>
+    $(".<%= @likable.commentable.class.to_s.downcase %>-<%= @likable.commentable_id %> > .comments > .d-flex > .flex-fill > .comment-<%= @likable.id %> + .likes").html("<%= escape_javascript(render('users/shared/likes', likes: @likable.likes )) %>");
+  <% else %>
+    $(".<%= @likable.class.to_s.downcase %>-<%= @likable.id %> > .stats > .likes").html("<%= escape_javascript(render('users/shared/likes', likes: @likable.likes )) %>");
+  <% end %>
 <% else %>
-  $(".post-<%= @post.id %> > .stats > .likes").html("")
+  <% if @likable.class.to_s == "Comment"%>
+    $(".<%= @likable.commentable.class.to_s.downcase %>-<%= @likable.commentable_id %> > .comments > .d-flex > .flex-fill > .comment-<%= @likable.id %> + .likes").html("");
+  <% else %>
+    $(".<%= @likable.class.to_s.downcase %>-<%= @likable.id %> > .stats > .likes").html("");
+  <% end %>
 <% end %>
-$(".post-<%= @post.id %> > .actions > .d-flex > .like").html("<%= j(render('shared/like_button', post: @post)) %>")
+<% if @likable.class.to_s == "Comment" %>
+  $(".<%= @likable.commentable.class.to_s.downcase %>-<%= @likable.commentable_id %> > .comments > .d-flex > .flex-fill > .comment-<%= @likable.id %> + .likes + .like").html("<%= j(render('shared/resource_comment_like_button', likable: @likable)) %>");
+<% else %>
+  $(".<%= @likable.class.to_s.downcase %>-<%= @likable.id %> > .actions > .d-flex > .like").html("<%= j(render('shared/like_button', post: @likable)) %>");
+<% end %>

@@ -1,5 +1,11 @@
 <% if post.comments.count > 0 %>
-  <%= button_to new_user_post_comment_path(post.author, post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
-    <%= pluralize post.comments.count, "Comment" %>
+  <% unless post.is_a?(Photo) %>
+    <%= button_to new_user_post_comment_path(post.author, post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
+      <%= pluralize post.comments.count, "Comment" %>
+    <% end %>
+  <% else %>
+    <%= button_to new_photo_comment_path(post), method: :get, remote: true, class: "btn btn-outline-secondary border-0" do %>
+      <%= pluralize post.comments.count, "Comment" %>
+    <% end %>
   <% end %>
 <% end %>

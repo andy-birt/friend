@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
   def setup
-    @comment = Comment.new(post_id: posts(:one).id, user_id: users(:frank).id, body: "comment")
+    @comment = Comment.new(commentable: posts(:one), user_id: users(:frank).id, body: "comment")
   end
 
   test "should be valid" do
@@ -15,7 +15,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "should have associated post" do
-    @comment.post_id = nil
+    @comment.commentable_id = nil
     assert_not @comment.valid?
   end
 

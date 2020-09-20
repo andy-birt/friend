@@ -13,12 +13,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
 
   has_one_attached :avatar
+  validates :avatar, content_type: true, size_range: true, unless: :creating_user?
+  has_many :photos, dependent: :destroy
   has_many :posts, foreign_key: :author_id, dependent: :destroy
   has_many :notifications, foreign_key: :receiver_id, dependent: :destroy
   has_many :friend_requests, dependent: :destroy
   has_many :accepted_requests, -> { where accepted: true }, class_name: "FriendRequest", dependent: :destroy
   has_many :friends, through: :accepted_requests, source: :receiver
-  has_many :comments, dependent: :destroy
+  has_many :comments, foreign_key: :user_id, dependent: :destroy
+
+  def creating_user?
+    new_record?
+  end
 
   def full_name
     name = []

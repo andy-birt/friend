@@ -3,9 +3,8 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @post = Post.find(params[:post_id])
-    @like = @post.likes.create(user_id: current_user.id, post_id: params[:post_id])
-    Notification.create(receiver: @post.author, actor: current_user, action: "liked", notifiable: @post) unless helpers.current_user_or_already_liked(@post)
+    @like = @likable.likes.create(user_id: current_user.id, likable: @likable)
+    Notification.create(receiver: helpers.get_user(@likable), actor: current_user, action: "liked", notifiable: @likable) unless helpers.current_user_or_already_liked(@likable)
     respond_to do |format|
       format.html { render partial: "users/shared/likes" }
       format.js 
@@ -13,11 +12,10 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    Like.find(params[:id]).destroy
+    @likable.likes.find(params[:id]).destroy
     respond_to do |format|
       format.html { render partial: "users/shared/likes" }
-      format.js 
+      format.js
     end
   end
 end

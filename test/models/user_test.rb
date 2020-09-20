@@ -24,10 +24,10 @@ class UserTest < ActiveSupport::TestCase
   test "first and last name should be valid" do
     @user.first_name = "bob"
     @user.last_name = "smith"
-    assert_not @user.valid?
+    assert @user.valid?
     @user.first_name = "BoB"
     @user.last_name = "SmItH"
-    assert_not @user.valid?, @user.errors.full_messages
+    assert @user.valid?
   end
 
   test "email should be valid" do

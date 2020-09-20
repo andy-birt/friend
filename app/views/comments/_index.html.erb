@@ -2,21 +2,33 @@
   <% @comments.each do |comment| %>
     <% unless comment.id.nil? %>
       <div class="d-flex">
-        <div class="mb-2"><%= avatar(comment.user, 30, 30) %></div>
+        <div class="mb-2"><%= avatar(comment.author, 30, 30) %></div>
         <div class="flex-fill mb-2 ml-2 pl-2 bg-white rounded">
-          <% if current_user == comment.user %>
+          <% if current_user == comment.author %>
             <%= content_tag(:div, class: "btn-group dropleft float-right") do %>
               <a class="btn btn-outline-secondary border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria_expanded="false"></a>
               <%= content_tag(:div, class: "dropdown-menu") do %>
                 <%= link_to("Edit Comment",   "", class: "dropdown-item", data: { toggle: "modal", target: "#update-comment-#{comment.id}"}) %>
                 <%= link_to("Delete Comment", "", class: "dropdown-item", data: { toggle: "modal", target: "#delete-comment-#{comment.id}"}) %>
               <% end %>
-              <%= render partial: 'shared/update', locals: { resource: comment, url: user_post_comment_path(current_user, comment.post, comment) } %>
-              <%= render partial: 'shared/delete', locals: { resource: comment, url: user_post_comment_path(current_user, comment.post, comment) } %>
+              <%= render partial: 'shared/update', locals: { resource: comment, url: user_post_comment_path(current_user, comment.commentable, comment) } %>
+              <%= render partial: 'shared/delete', locals: { resource: comment, url: user_post_comment_path(current_user, comment.commentable, comment) } %>
             <% end %>
           <% end %>
-          <span class="commenter"><%= comment.user.full_name %></span>
-          <p class="comment"><%= comment.body %></p>
+          <span class="commenter"><%= comment.author.full_name %></span>
+          <p class="comment-<%= comment.id %>"><%= comment.body %></p>
+          <%= content_tag(:span, class: "likes") do %>
+            <% if comment.likes.count > 0 %>
+              <%= render "users/shared/likes", likes: comment.likes %>
+            <% end %>
+          <% end %>
+          <%= content_tag(:div, class: "like") do %>
+            <% if comment.likes.pluck(:user_id).include?(current_user.id) %>
+              <%= render("shared/resource_comment_unlike_button", likable: comment) %>
+            <% else %>
+              <%= render("shared/resource_comment_like_button", likable: comment) %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     <% end %>
