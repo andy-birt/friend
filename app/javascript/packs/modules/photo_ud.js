@@ -25,7 +25,7 @@ export function editPhotos(post) {
       img = image;
     }
     $(removePhoto).addClass("delete-photo");
-    $(removePhoto).html("&times;");
+    $(removePhoto).html("<div class='line1'></div><div class='line2'></div>");
     $(photo).addClass("photo mb-2");
     $(caption).addClass("caption");
     $(caption).attr({"placeholder": "caption", "name": "post[photos_attributes]["+images.indexOf(image)+"][caption]", "id": "post_photos_attributes_"+images.indexOf(image)+"_caption"});
